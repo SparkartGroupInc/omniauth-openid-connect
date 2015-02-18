@@ -76,7 +76,7 @@ module OmniAuth
       end
 
       def config
-        @config ||= ::OpenIDConnect::Discovery::Provider::Config.discover!(options.issuer)
+        @config ||= ::OpenIDConnect::Discovery::Provider::Config.discover!("https://#{options.issuer}")
       end
 
       def request_phase
@@ -126,8 +126,8 @@ module OmniAuth
       end
 
       def public_key
-        if options.discover
-          config.public_keys.first
+        if options.discovery
+          config.public_keys.last
         else
           key_or_secret
         end
